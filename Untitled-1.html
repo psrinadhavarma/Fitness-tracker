@@ -1,0 +1,139 @@
+
+import React, { useState } from "react";
+
+export default function App() {
+  const [steps, setSteps] = useState(6500);
+  const [water, setWater] = useState(4);
+  const [workout, setWorkout] = useState(30);
+
+  const calories = Math.round(steps * 0.04);
+
+  return (
+    <div>
+      <style>{`
+        * { box-sizing: border-box; }
+        body {
+          margin: 0;
+          font-family: Arial, sans-serif;
+          background: #f0f4f8;
+        }
+        .header {
+          background: #123c35;
+          color: white;
+          padding: 25px 8%;
+        }
+        .container {
+          padding: 30px 8%;
+        }
+        .dashboard {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          gap: 22px;
+          margin-top: 25px;
+        }
+        .card {
+          background: white;
+          padding: 25px;
+          border-radius: 15px;
+          text-align: center;
+          box-shadow: 0 4px 12px #00000012;
+        }
+        .card h1 {
+          color: #16a085;
+          font-size: 32px;
+        }
+        button {
+          background: #16a085;
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 8px;
+          cursor: pointer;
+          margin-top: 12px;
+        }
+        button:hover { background: #117864; }
+        progress {
+          width: 100%;
+          height: 12px;
+          accent-color: #16a085;
+        }
+        .activity {
+          background: white;
+          padding: 25px;
+          border-radius: 15px;
+          margin-top: 30px;
+        }
+        footer {
+          text-align: center;
+          padding: 20px;
+          color: #666;
+        }
+      `}</style>
+
+      <header className="header">
+        <h1>🏃 FitTrack</h1>
+        <p>Your Personal Fitness Tracker</p>
+      </header>
+
+      <main className="container">
+        <h2>Welcome Back! 💪</h2>
+        <p>Track your daily health and fitness activities.</p>
+
+        <div className="dashboard">
+
+          <div className="card">
+            <h2>👟 Daily Steps</h2>
+            <h1>{steps}</h1>
+            <p>Goal: 10,000 Steps</p>
+            <progress value={steps} max="10000" />
+            <br />
+            <button onClick={() => setSteps(steps + 500)}>
+              + Add 500 Steps
+            </button>
+          </div>
+
+          <div className="card">
+            <h2>🔥 Calories Burned</h2>
+            <h1>{calories} kcal</h1>
+            <p>Estimated calories burned</p>
+          </div>
+
+          <div className="card">
+            <h2>💧 Water Intake</h2>
+            <h1>{water}/8 Glasses</h1>
+            <p>Daily Water Goal</p>
+            <progress value={water} max="8" />
+            <br />
+            <button onClick={() => setWater(Math.min(water + 1, 8))}>
+              + Add Water
+            </button>
+          </div>
+
+          <div className="card">
+            <h2>🏋️ Workout</h2>
+            <h1>{workout} Min</h1>
+            <p>Daily Exercise Time</p>
+            <button onClick={() => setWorkout(workout + 10)}>
+              + Add 10 Minutes
+            </button>
+          </div>
+
+        </div>
+
+        <div className="activity">
+          <h2>📊 Daily Progress</h2>
+          <p>Steps Progress: {Math.min(100, steps / 100)}%</p>
+          <progress value={steps} max="10000" />
+          <p>Water Progress: {water * 12.5}%</p>
+          <progress value={water} max="8" />
+          <p>Workout Progress: {Math.min(100, workout / 0.3)}%</p>
+          <progress value={workout} max="30" />
+        </div>
+      </main>
+
+      <footer>
+        © 2026 FitTrack | Stay Healthy, Stay Fit ❤️
+      </footer>
+    </div>
+  );
+}
